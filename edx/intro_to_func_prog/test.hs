@@ -1,3 +1,8 @@
+--Description: Just a sandbox of Haskell snippets while practicing examples from lecture vids at https://github.com/fptudelft/FP101x-Content
+-- Exercise imports
+--For Ch4 Pt 2 ex4: 'lowers' implementation
+import Data.Char
+
 --eDx 
 
 --Ch1 & Ch2
@@ -31,29 +36,29 @@ add = \x -> (\y -> x + y)
 my_const x = \_ -> x
 
 
---notes: lambda expression in HAskell
+--notes: lambda expression in Haskell
 my_odds n = map (\x -> x*2 + 1) [0..n-1]
 
---Ch4 - list comprehensions
+--Ch4 - Part 1 - list comprehensions
 -- note: can't have 'naked' expressions in Haskell scripts, i.e. 
 -- examples that are not functions
 --ex 1:
---[x^2 | x <- [1..5]]
+-- console ex:> [x^2 | x <- [1..5]]
 
 --ex 2:
---[(x,y) | x <- [1..5], y <- [4..5] ]
+-- console ex:> [(x,y) | x <- [1..5], y <- [4..5] ]
 
 --ex 3:
---[(x,y) | x <- [1..3], y <- [x..5] ]
+-- console ex:> [(x,y) | x <- [1..3], y <- [x..5] ]
 
 --ex 4:
 -- notes: list comprehension applied to function definition
 concat      :: [[a]] -> [a]
 concat xss  = [x | xs <- xss, x <- xs ]
---concat [[1,2,3], [4,5], [6]]
+--console ex:> concat [[1,2,3], [4,5], [6]]
 
 --ex 5: using Guards, analogous to TSQL WHERE clause or LINQ statement's predicate parameter
---[x | x <- [1..10], even x]
+--console ex:> [x | x <- [1..10], even x]
 
 --ex 6: factors 
 factors :: Int -> [Int]
@@ -67,4 +72,32 @@ prime n = factors n == [1,n]
 primes :: Int -> [Int]
 primes n = [x | x <- [2..n], prime x]
 
--- Left off: starting vid Ch4 Part 2
+--Ch4 - Part 2 - list comprehensions
+--built-in type signature for zip :: [a] -> [b] -> [(a,b)]
+--console ex:> zip ['a', 'b', 'c'] [1..5]
+
+--ex2: 'pairs' implementation
+pairs :: [a] -> [(a,a)]
+pairs xs = zip xs (tail xs)
+
+--ex3: 'sorted' implementation
+sorted :: Ord a => [a] -> Bool
+sorted xs = 
+      and [x <= y | (x, y) <- pairs xs]
+--console ex:> sorted [1, 2, 3, 4]
+--console ex:> sorted [1, 4, 3, 2]
+
+--ex4: 'positions' implementation
+positions :: Eq a => a -> [a] -> [Int]
+positions x xs =
+   [i | (x', i) <- zip xs [0..n], x == x']
+   where n = length xs - 1
+--console ex:> positions 0 [1,0,0,1,0,1,1,0]
+
+--ex4: 'lowers' implementation
+lowers :: String -> Int
+lowers xs =
+   length [x | x <- xs, isLower x]
+--console ex:> lowers "Haskell"
+   
+-- Left-off: Chapter 5 Part 1
