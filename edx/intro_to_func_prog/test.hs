@@ -2,6 +2,10 @@
 -- Exercise imports
 --For Ch4 Pt 2 ex4: 'lowers' implementation
 import Data.Char
+--Ref: Help to exclude imports to allow custom definitions / override of built-in functions
+--http://stackoverflow.com/questions/3175583/proper-way-to-import-things-already-defined-in-the-prelude-in-haskell
+--http://stackoverflow.com/questions/21028908/ambiguous-occurrence-map-error-in-winhugs-haskell
+import Prelude hiding ( (++), product, length, reverse, zip, drop )
 
 --eDx 
 
@@ -10,7 +14,7 @@ import Data.Char
 double x = x + x
 quadruple x = double (double x)
 
-factorial n = product [1..n]
+--factorial n = product [1..n]
 average ns = sum ns `div` length ns
 
 n = a `div` length xs
@@ -100,4 +104,45 @@ lowers xs =
    length [x | x <- xs, isLower x]
 --console ex:> lowers "Haskell"
    
--- Left-off: Chapter 5 Part 1
+-- Chapter 5 Part 1 - recursive functions
+--ex1: 'factorial' implementation
+factorial :: Int -> Int
+--factorial n = product [1..n]
+
+--ex2: recursive 'factorial' implementation
+factorial 0 = 1
+factorial n = n * factorial (n-1)
+
+--ex3: recursive 'product' implementation
+product :: [Int] -> Int
+product []       = 1
+product (n:ns)   = n * product ns
+
+--ex4: recursive 'length' implementation
+length :: [a] -> Int
+length []     = 0
+length (_:xs) = 1 + length xs
+
+--ex5: recursive 'reverse' implementation
+reverse :: [a] -> [a]
+reverse []     = []
+reverse (x:xs) = reverse xs ++ [x]
+
+--ex5: recursive 'zip' implementation
+zip                 :: [a] -> [b] -> [(a,b)]
+zip []   _          =  []
+zip _   []          =  []
+zip (x:xs) (y:ys)   = (x,y) : zip xs ys
+
+--ex5: recursive 'drop' implementation
+drop          :: Int -> [a] -> [a]
+drop 0 xs     = xs
+drop _ []     = []
+drop n (_:xs) = drop (n-1) xs
+
+--ex6: recursive 'list appending (++)' implementation
+(++) :: [a] -> [a]-> [a]
+[] ++ ys = ys
+(x:xs) ++ ys = x : (xs ++ ys)
+
+-- Left-off: Chapter 5 Part 2
