@@ -104,7 +104,7 @@ lowers xs =
    length [x | x <- xs, isLower x]
 --console ex:> lowers "Haskell"
    
--- Chapter 5 Part 1 - recursive functions
+-- Chapter 5 Part 1 & Part 2 - recursive functions
 --ex1: 'factorial' implementation
 factorial :: Int -> Int
 --factorial n = product [1..n]
@@ -145,4 +145,4 @@ drop n (_:xs) = drop (n-1) xs
 [] ++ ys = ys
 (x:xs) ++ ys = x : (xs ++ ys)
 
--- Left-off: Chapter 5 Part 2
+-- Left-off: Chapter 6 Part 1
