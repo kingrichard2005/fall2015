@@ -145,4 +145,6 @@ drop n (_:xs) = drop (n-1) xs
 [] ++ ys = ys
 (x:xs) ++ ys = x : (xs ++ ys)
 
--- Left-off: Chapter 6 Part 1
+-- Chapter 6 Part 1
+-- notes: introduced concepts higher-order functions using toy example 'twice'.  Showed difference ways to define common higher order functions 'map' and 'filter' using list comprehensions and recursion
+-- Left-off: Chapter 6 Part 2...
