@@ -147,4 +147,5 @@ drop n (_:xs) = drop (n-1) xs
 
 -- Chapter 6 Part 1
 -- notes: introduced concepts higher-order functions using toy example 'twice'.  Showed difference ways to define common higher order functions 'map' and 'filter' using list comprehensions and recursion
--- Left-off: Chapter 6 Part 2...
+-- Chapter 6 Part 2
+-- notes: introduced 'foldr' and 'foldl' and their general application in writing compact and optimized recursive functions on lists
