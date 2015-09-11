@@ -149,3 +149,8 @@ drop n (_:xs) = drop (n-1) xs
 -- notes: introduced concepts higher-order functions using toy example 'twice'.  Showed difference ways to define common higher order functions 'map' and 'filter' using list comprehensions and recursion
 -- Chapter 6 Part 2
 -- notes: introduced 'foldr' and 'foldl' and their general application in writing compact and optimized recursive functions on lists
+-- Chapter 6 Part 3
+-- notes: 
+-- * discussed function composition using Haskell's (.) notation
+-- * as best practice recommended using function composition sparingly, why? Ans: Could be more difficult for other devs to read, also func. composition can be done automatically
+-- * discussed Haskell's built-in 'all', 'any', 'takeWhile' and 'dropWhile' functions.  Shared preference for 'foldr' over list comprehensions since 'foldr' generalizes better to recursive structured.  List comprehensions only apply to...lists, generalizing them can also be tedious.
