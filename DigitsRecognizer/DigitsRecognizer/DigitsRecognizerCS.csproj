@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classifier.cs" />
     <Compile Include="DataReader.cs" />
     <Compile Include="Distance.cs" />
     <Compile Include="Observation.cs" />

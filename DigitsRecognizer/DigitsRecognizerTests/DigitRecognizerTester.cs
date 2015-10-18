@@ -45,5 +45,20 @@ namespace DigitsRecognizer.Tests
             //assert
             Assert.AreEqual(result, 32);
         }
+
+        [TestMethod()]
+        public void Test_Base_Classifier_training()
+        {
+            //arrange
+            var distance = new ManhattanDistance();
+            var classifier = new BasicClassifier(distance);
+            string trainingPath = Path.Combine(TestContext.DeploymentDirectory, "digits", "trainingsample.csv");
+            var trainingData = DataReader.ReadObservations(trainingPath);
+            classifier.Train(trainingData);
+            //act
+            string labelResult = classifier.Predict(trainingData[0].Pixels);
+            //assert
+            Assert.IsFalse(string.IsNullOrEmpty(labelResult));
+        }
     }
 }
