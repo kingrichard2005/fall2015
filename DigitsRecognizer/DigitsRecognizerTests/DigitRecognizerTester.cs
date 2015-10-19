@@ -60,5 +60,37 @@ namespace DigitsRecognizer.Tests
             //assert
             Assert.IsFalse(string.IsNullOrEmpty(labelResult));
         }
+
+        [TestMethod()]
+        public void Test_model_Evaluator_scoring()
+        {
+            // arrange
+            var distance = new ManhattanDistance();
+            var classifier = new BasicClassifier(distance);
+            string trainingPath = Path.Combine(TestContext.DeploymentDirectory, "digits", "trainingsample.csv");
+            var trainingData = DataReader.ReadObservations(trainingPath);
+            classifier.Train(trainingData);
+            // act
+            var result = Evaluator.Score(trainingData[0], classifier);
+            // assert
+            Assert.AreEqual(result,1.0);
+        }
+
+        [TestMethod()]
+        public void Test_model_Evaluator_correction_averaging()
+        {
+            // arrange
+            var distance = new ManhattanDistance();
+            var classifier = new BasicClassifier(distance);
+            string trainingPath = Path.Combine(TestContext.DeploymentDirectory, "digits", "trainingsample.csv");
+            string validationPath = Path.Combine(TestContext.DeploymentDirectory, "digits", "validationsample.csv");
+            var trainingData = DataReader.ReadObservations(trainingPath);
+            var validationData = DataReader.ReadObservations(validationPath);
+            classifier.Train(trainingData);
+            // act
+            var result = Evaluator.Correct(validationData, classifier);
+            // assert
+            Assert.AreEqual(result, 0.934);
+        }
     }
 }
