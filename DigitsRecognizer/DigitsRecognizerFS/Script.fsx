@@ -40,6 +40,7 @@ let trainingPath = fullPath
 
 // Sandbox
 type RawDataSource = { Path:string; includeHeaders: bool }
+
 let to2DIntArray (aaInt:int [] []) =
     let dim1 = Array.length aaInt
     let dim2 = Array.length aaInt.[0]
@@ -51,18 +52,24 @@ let CsvStringtoIntArray (csvData:string) =
 
 let genericCsvReader (_source:RawDataSource) =
     (* path includeHeaders <- previously distinct input params were rolled up into custom type RawDataSource*) 
+    // playing with pattern matching
     match _source.includeHeaders with
     | false -> File.ReadAllLines _source.Path |> Seq.skip 1 |> Seq.toArray
     | _ -> File.ReadAllLines _source.Path |> Seq.toArray // all else take headers
 
-let ``Read Csv Data To Int Array Then To 2D Array`` (_context:RawDataSource) =
+let ``Read Csv Data To Int Array Then To 2D Array (from pipelined functions)`` (_context:RawDataSource) =
     _context
     |> genericCsvReader
     |> Array.map CsvStringtoIntArray
     |> to2DIntArray
 
+let ``Read Csv Data To Int Array Then To 2D Array (from composed functions)`` = 
+    genericCsvReader 
+    >> Array.map CsvStringtoIntArray 
+    >> to2DIntArray
+
 let options = { Path = trainingPath; includeHeaders = false }
-let rawData = ``Read Csv Data To Int Array Then To 2D Array`` options
+let rawData = ``Read Csv Data To Int Array Then To 2D Array (from composed functions)`` options
 rawData.[0,0..]
 //let sample = rawData.[0..1] |> Array.map CsvStringtoIntArray
 //to2DIntArray sample
