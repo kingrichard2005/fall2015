@@ -28,15 +28,34 @@ let reader path =
     data.[1..]
     |> Array.map toObservation
 
+let manhattanDistance (pixels1,pixels2) =
+     Array.zip pixels1 pixels2
+     |> Array.map (fun (x,y) -> abs (x-y))
+     |> Array.sum
+
+let train (trainingset:Observation[]) =
+    let classify (pixels:int[]) =
+        trainingset 
+        |> Array.minBy (fun x -> manhattanDistance (x.Pixels , pixels))
+        |> fun x -> x.Label
+    classify
+
 // Source files
 let baseDirectory = __SOURCE_DIRECTORY__
 let baseDirectory' = Directory.GetParent(baseDirectory)
-let filePath = @"DigitsRecognizerTests\datasamples\digits\trainingsample.csv"
-let fullPath = Path.Combine(baseDirectory'.FullName, filePath)
-let trainingPath = fullPath
+let trainingPath = @"DigitsRecognizerTests\datasamples\digits\trainingsample.csv"
+let validationPath = @"DigitsRecognizerTests\datasamples\digits\validationsample.csv"
+let trainingFile = Path.Combine(baseDirectory'.FullName, trainingPath)
+let validationFile = Path.Combine(baseDirectory'.FullName, validationPath)
 
 // text book example
-// let trainingData = reader trainingPath
+let training = reader trainingFile
+let classifier_model = train training
+let validationData = reader validationFile
+
+validationData
+    |> Array.averageBy (fun x -> if classifier_model x.Pixels = x.Label then 1. else 0.)
+    |> printfn "Correct: %.3f"
 
 // Sandbox
 type RawDataSource = { Path:string; includeHeaders: bool }
@@ -68,7 +87,7 @@ let ``Read Csv Data To Int Array Then To 2D Array (from composed functions)`` =
     >> Array.map CsvStringtoIntArray 
     >> to2DIntArray
 
-let options = { Path = trainingPath; includeHeaders = false }
+let options = { Path = trainingFile; includeHeaders = false }
 let rawData = ``Read Csv Data To Int Array Then To 2D Array (from composed functions)`` options
 rawData.[0,0..]
 //let sample = rawData.[0..1] |> Array.map CsvStringtoIntArray
