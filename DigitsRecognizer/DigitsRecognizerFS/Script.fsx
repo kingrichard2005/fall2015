@@ -17,6 +17,7 @@ open System
 *)
 // text book example types and funcs
 type Observation = { Label:string; Pixels: int[] }
+type Distance = int[] * int[] -> int
 let toObservation (csvData:string) =
     let columns = csvData.Split(',')
     let label = columns.[0]
@@ -33,10 +34,15 @@ let manhattanDistance (pixels1,pixels2) =
      |> Array.map (fun (x,y) -> abs (x-y))
      |> Array.sum
 
-let train (trainingset:Observation[]) =
+let euclideanDistance (pixels1,pixels2) =
+    Array.zip pixels1 pixels2
+    |> Array.map (fun (x,y) -> pown (x-y) 2)
+    |> Array.sum
+
+let train (trainingset:Observation[])(dist:Distance) =
     let classify (pixels:int[]) =
         trainingset 
-        |> Array.minBy (fun x -> manhattanDistance (x.Pixels , pixels))
+        |> Array.minBy (fun x -> dist (x.Pixels , pixels))
         |> fun x -> x.Label
     classify
 
@@ -50,12 +56,27 @@ let validationFile = Path.Combine(baseDirectory'.FullName, validationPath)
 
 // text book example
 let training = reader trainingFile
-let classifier_model = train training
+let manhattanClassifierModel = train training manhattanDistance
+let euclideanClassifierModel = train training euclideanDistance
 let validationData = reader validationFile
 
-validationData
-    |> Array.averageBy (fun x -> if classifier_model x.Pixels = x.Label then 1. else 0.)
-    |> printfn "Correct: %.3f"
+let evaluate validationData model = 
+    validationData
+    |> Array.averageBy (fun x -> if model x.Pixels = x.Label then 1. else 0.)
+    |> printfn "Correct: %.3f"    
+
+//validationData
+//    |> Array.averageBy (fun x -> if manhattanClassifierModel x.Pixels = x.Label then 1. else 0.)
+//    |> printfn "Correct: %.3f"
+//
+//validationData
+//    |> Array.averageBy (fun x -> if euclideanClassifierModel x.Pixels = x.Label then 1. else 0.)
+//    |> printfn "Correct: %.3f"
+
+printfn "Manhattan"
+evaluate validationData manhattanClassifierModel
+printfn "Euclidean"
+evaluate validationData euclideanClassifierModel
 
 // Sandbox
 type RawDataSource = { Path:string; includeHeaders: bool }
