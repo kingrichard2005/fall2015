@@ -5,14 +5,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>8ae44f73-7003-46e5-9bf3-4d6877e64c8d</ProjectGuid>
+    <ProjectGuid>2794cbbe-57ef-4b78-a7f3-741961d8b17e</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>DigitsRecognizerFS</RootNamespace>
-    <AssemblyName>DigitsRecognizerFS</AssemblyName>
+    <RootNamespace>SpamorHam</RootNamespace>
+    <AssemblyName>SpamorHam</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Name>DigitsRecognizerFS</Name>
+    <Name>SpamorHam</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,7 +22,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\DigitsRecognizerFS.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\SpamorHam.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,7 +31,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\DigitsRecognizerFS.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\SpamorHam.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="NaiveBayes.fs" />
     <None Include="Script.fsx" />
   </ItemGroup>
   <PropertyGroup>

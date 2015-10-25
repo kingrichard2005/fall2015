@@ -1,6 +1,4 @@
-﻿#load "Library1.fs"
-open DigitsRecognizerFS
-open System.IO
+﻿open System.IO
 open System
 
 // Define your library scripting code here
@@ -64,14 +62,6 @@ let evaluate validationData model =
     validationData
     |> Array.averageBy (fun x -> if model x.Pixels = x.Label then 1. else 0.)
     |> printfn "Correct: %.3f"    
-
-//validationData
-//    |> Array.averageBy (fun x -> if manhattanClassifierModel x.Pixels = x.Label then 1. else 0.)
-//    |> printfn "Correct: %.3f"
-//
-//validationData
-//    |> Array.averageBy (fun x -> if euclideanClassifierModel x.Pixels = x.Label then 1. else 0.)
-//    |> printfn "Correct: %.3f"
 
 printfn "Manhattan"
 evaluate validationData manhattanClassifierModel
