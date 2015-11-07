@@ -5,7 +5,7 @@ import QuickListSorter
 from FileLoader import FileLoader
 from QuickListSorter import QuickListSorter
 
-class HW2Tests(unittest.TestCase):
+class Ex2Tests(unittest.TestCase):
 
     def test_file_loader_can_load_list_of_integers(self):
         # arrange

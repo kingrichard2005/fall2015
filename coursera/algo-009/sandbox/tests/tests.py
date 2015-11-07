@@ -5,7 +5,7 @@ import ListSorter
 from FileLoader import FileLoader
 from ListSorter import ListSorter
 
-class HW1Tests(unittest.TestCase):
+class Ex1Tests(unittest.TestCase):
 
     def test_file_loader_can_load_list_of_integers(self):
         # arrange
