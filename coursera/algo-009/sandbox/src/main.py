@@ -1,4 +1,4 @@
-﻿__author__ = 'rgalvan'
+﻿__author__ = 'kingrichard2005'
 import ListSorter
 import FileLoader
 import argparse

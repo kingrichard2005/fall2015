@@ -1,5 +1,5 @@
 ﻿import  csv
-__author__ = 'rgalvan'
+__author__ = 'kingrichard2005'
 
 class FileLoader(object):
     @staticmethod
